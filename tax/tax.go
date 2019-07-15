@@ -1,5 +1,10 @@
 package tax
 
+import (
+	"log"
+	"fmt"
+)
+
 const (
 	TaxCodeFood = 1
 	TaxCodeTobacco = 2
@@ -17,46 +22,51 @@ type tax struct {
 	Object
 	TypeName string `json:"type_name"`
 	Refundable bool `json:"refundable"`
-	TaxAmount float32  `json:"tax"`
-	Amount float32 `json:"amount"`
+	TaxAmount float64  `json:"tax"`
+	Amount float64 `json:"amount"`
 }
 
-func newFoodTax(t Object) tax {
+func NewFoodTax(t Object) tax {
 
-	taxAmount := float32(10/100 * t.Price)
+	taxAmount := float64((10 * t.Price)/100)
 
 	ft := tax{
 		Object: t,
 		TypeName: "Food & Beverages",
 		TaxAmount: taxAmount,
-		Amount: float32(float32(t.Price) - taxAmount),
+		Refundable: true,
 	}
 
 	return ft
 }
 
-func newTobaccoTax(t Object) tax {
-	taxAmount := float32(10 + (2/100 * t.Price))
+func NewTobaccoTax(t Object) tax {
+	taxAmount := float64(10 + ((2 * t.Price)/100) )
 
 	tt := tax{
 		Object: t,
-		TypeName: "Food & Beverages",
+		TypeName: "Tobacco",
 		TaxAmount: taxAmount,
-		Amount: float32(float32(t.Price) - taxAmount),
+		Refundable: false,
 	}
 
 	return tt
 }
 
-func newEntTax(t Object) tax {
+func NewEntTax(t Object) tax {
 
-	taxAmount := float32(1/100 * (t.Price - 100))
+	var taxAmount float64
+	if t.Price < 100 {
+		taxAmount = 0
+	} else {
+		taxAmount = float64(float64(t.Price - 100)/float64(100))
+	}
 
 	et := tax{
 		Object: t,
-		TypeName: "Food & Beverages",
+		TypeName: "Entertainment",
 		TaxAmount: taxAmount,
-		Amount: float32(float32(t.Price) - taxAmount),
+		Refundable: false,
 	}
 
 	return et
@@ -64,16 +74,20 @@ func newEntTax(t Object) tax {
 
 func NewTax(o Object) tax {
 
+	fmt.Print(o.TaxCode)
+
 	var t tax
 	if o.TaxCode == TaxCodeFood {
-		t = newFoodTax(o)
+		t = NewFoodTax(o)
 	} else if o.TaxCode == TaxCodeTobacco {
-		t = newTobaccoTax(o)
+		t = NewTobaccoTax(o)
 	} else if o.TaxCode == TaxCodeEnt {
-		t = newEntTax(o)
+		t = NewEntTax(o)
+	} else {
+		log.Fatal("Unknown Tax Code: ", o.TaxCode)
 	}
 
-	t.Amount = float32(t.Price) + t.TaxAmount
+	t.Amount = float64(t.Price) + t.TaxAmount
 
 	return t
 }
