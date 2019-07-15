@@ -2,7 +2,6 @@ package tax
 
 import (
 	"log"
-	"fmt"
 )
 
 const (
@@ -73,8 +72,6 @@ func NewEntTax(t Object) tax {
 }
 
 func NewTax(o Object) tax {
-
-	fmt.Print(o.TaxCode)
 
 	var t tax
 	if o.TaxCode == TaxCodeFood {
