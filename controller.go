@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 	"log"
-	"./tax"
+	"github.com/egig/tax_calculator/tax"
 )
 
 type Controller struct {

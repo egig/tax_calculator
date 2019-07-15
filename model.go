@@ -2,7 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"./tax"
+	"github.com/egig/tax_calculator/tax"
 )
 
 type Model struct {

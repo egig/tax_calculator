@@ -13,7 +13,7 @@ import (
 func main() {
 
 	dbDriver := "mysql"
-	dbDSN := "root@/tax_calculator"
+	dbDSN := "root:password@/tax_calculator"
 	db, err := sql.Open(dbDriver, dbDSN)
 	if err != nil {
 		log.Fatal(err)
