@@ -4,7 +4,7 @@
 
 Table: tax
 
-<img>
+![](https://raw.githubusercontent.com/egig/tax_calculator/master/diagram.png)
 
 
 ## Api Routes
@@ -80,7 +80,7 @@ Follow this step to run this application.
 2. Clone this repo
     
     ```$xslt
-    git clone <>
+    git clone https://github.com/egig/tax_calculator.git
     ```
     
 3. Change Working directory
