@@ -1,9 +1,9 @@
 package main
 
 import (
-	"testing"
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/egig/tax_calculator/tax"
+	"testing"
 )
 
 func TestModel_CreateTax(t *testing.T) {
@@ -19,16 +19,16 @@ func TestModel_CreateTax(t *testing.T) {
 	//INSERT INTO tax(name, tax_code, price) VALUES(?,?,?)
 	mock.ExpectExec("INSERT INTO tax").
 		WithArgs("Big Mac", 1, float64(1000)).
-			WillReturnResult(sqlmock.NewResult(1, 1))
+		WillReturnResult(sqlmock.NewResult(1, 1))
 
 	m := Model{
 		DB: db,
 	}
 
 	bigMac := tax.TaxObject{
-		Name: "Big Mac",
+		Name:    "Big Mac",
 		TaxCode: tax.TaxCodeFood,
-		Price: 1000,
+		Price:   1000,
 	}
 
 	_, err = m.CreateTaxObject(bigMac)
@@ -51,9 +51,9 @@ func TestModel_GetTaxObjects(t *testing.T) {
 	}
 
 	bigMac := tax.TaxObject{
-		Name: "Big Mac",
+		Name:    "Big Mac",
 		TaxCode: tax.TaxCodeFood,
-		Price: 1000,
+		Price:   1000,
 	}
 
 	m := Model{

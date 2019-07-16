@@ -1,14 +1,13 @@
 package main
 
 import (
+	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
-	"database/sql"
 	"log"
 	"net/http"
 	"os"
 )
-
 
 func main() {
 

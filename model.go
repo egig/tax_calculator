@@ -5,15 +5,18 @@ import (
 	"github.com/egig/tax_calculator/tax"
 )
 
+// Model manage data, logic and rules of the app
 type Model struct {
 	DB *sql.DB
 }
 
+// CreateTaxObject create Tax Object
 func (m Model) CreateTaxObject(t tax.TaxObject) (sql.Result, error) {
 	query := `INSERT INTO tax(name, tax_code, price) VALUES(?,?,?)`
 	return m.DB.Exec(query, t.Name, t.TaxCode, t.Price)
 }
 
+// GetTaxObjects get Tax Object
 func (m Model) GetTaxObjects() ([]tax.Tax, error) {
 
 	rows, err := m.DB.Query("SELECT id, name, tax_code, price FROM tax")
@@ -51,7 +54,5 @@ func (m Model) GetTaxObjects() ([]tax.Tax, error) {
 		return nil, err
 	}
 
-	return taxes,nil
+	return taxes, nil
 }
-
-

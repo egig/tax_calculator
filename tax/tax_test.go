@@ -1,8 +1,8 @@
 package tax
 
 import (
-	"testing"
 	"gotest.tools/assert"
+	"testing"
 )
 
 func TestNewFoodTax(t *testing.T) {

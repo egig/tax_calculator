@@ -1,8 +1,8 @@
 package main
 
 import (
-	"net/http"
 	"encoding/json"
+	"net/http"
 )
 
 func respondWithError(w http.ResponseWriter, code int, message string) {
@@ -17,6 +17,7 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Write(response)
 }
 
+// InSlice check if the element is in slice of same type
 func InSlice(e int, s []int) bool {
 	for _, a := range s {
 		if a == e {

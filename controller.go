@@ -1,26 +1,28 @@
 package main
 
 import (
-	"net/http"
 	"encoding/json"
 	"fmt"
-	"strings"
-	"log"
 	"github.com/egig/tax_calculator/tax"
 	"io/ioutil"
+	"log"
+	"net/http"
+	"strings"
 )
 
+// Controller is object holding the http handler
 type Controller struct {
 	model Model
 }
 
+// BillHandler http handler to get bills
 func (c Controller) BillHandler(w http.ResponseWriter, r *http.Request) {
 
 	type Response struct {
-		PriceSubTotal float64 `json:"price_sub_total"`
-		TaxSubTotal float64 `json:"tax_sub_total"`
-		GrandTotal float64 `json:"grand_total"`
-		TaxList []tax.Tax `json:"tax_list"`
+		PriceSubTotal float64   `json:"price_sub_total"`
+		TaxSubTotal   float64   `json:"tax_sub_total"`
+		GrandTotal    float64   `json:"grand_total"`
+		TaxList       []tax.Tax `json:"tax_list"`
 	}
 
 	res := Response{
@@ -38,7 +40,7 @@ func (c Controller) BillHandler(w http.ResponseWriter, r *http.Request) {
 	if taxList != nil {
 		res.TaxList = taxList
 
-		for _,t := range taxList {
+		for _, t := range taxList {
 			res.PriceSubTotal += t.Price
 			res.TaxSubTotal += t.TaxAmount
 			res.GrandTotal += t.Amount
@@ -48,10 +50,10 @@ func (c Controller) BillHandler(w http.ResponseWriter, r *http.Request) {
 	respondWithJSON(w, http.StatusOK, res)
 }
 
-
+// TaxObjectHandler http handler to create Tax Object
 func (c Controller) TaxObjectHandler(w http.ResponseWriter, r *http.Request) {
 
-	b,_ := ioutil.ReadAll(r.Body)
+	b, _ := ioutil.ReadAll(r.Body)
 
 	var taxObject tax.TaxObject
 
@@ -99,4 +101,3 @@ func (c Controller) TaxObjectHandler(w http.ResponseWriter, r *http.Request) {
 
 	respondWithJSON(w, http.StatusCreated, taxObject)
 }
-

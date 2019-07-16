@@ -1,15 +1,15 @@
 package main
 
 import (
-	"testing"
-	"net/http/httptest"
+	"bytes"
+	"database/sql"
+	"fmt"
 	"github.com/DATA-DOG/go-sqlmock"
 	"gotest.tools/assert"
-	"net/http"
-	"fmt"
 	"io/ioutil"
-	"database/sql"
-	"bytes"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 )
 
 func TestController_BillHandler(t *testing.T) {
