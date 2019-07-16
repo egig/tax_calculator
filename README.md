@@ -1,6 +1,10 @@
 # Tax Calculator
 
-##Database Design
+Language: Golang
+
+Database: mysql
+
+## Database Design
 
 Table: tax
 
