@@ -17,6 +17,11 @@ func (m Model) CreateTaxObject(t tax.TaxObject) (sql.Result, error) {
 func (m Model) GetTaxObjects() ([]tax.Tax, error) {
 
 	rows, err := m.DB.Query("SELECT id, name, tax_code, price FROM tax")
+
+	if err == sql.ErrNoRows {
+		return make([]tax.Tax, 0), nil
+	}
+
 	if err != nil {
 		return nil, err
 	}

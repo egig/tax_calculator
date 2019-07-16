@@ -4,8 +4,6 @@ import (
 	"testing"
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/egig/tax_calculator/tax"
-	//"fmt"
-	"fmt"
 )
 
 func TestModel_CreateTax(t *testing.T) {
@@ -67,12 +65,9 @@ func TestModel_GetTaxObjects(t *testing.T) {
 	rows := sqlmock.NewRows([]string{"id", "name", "tax_code", "price"}).AddRow(1, "Big Mac", tax.TaxCodeFood, 1000)
 	mock.ExpectQuery("SELECT id, name, tax_code, price FROM tax").WillReturnRows(rows)
 
-	taxes, err := m.GetTaxObjects()
+	_, err = m.GetTaxObjects()
 
 	if err != nil {
 		t.Fatal(err)
 	}
-
-	fmt.Println(taxes)
-
 }

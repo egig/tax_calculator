@@ -7,6 +7,7 @@ import (
 	"strings"
 	"log"
 	"github.com/egig/tax_calculator/tax"
+	"io/ioutil"
 )
 
 type Controller struct {
@@ -26,6 +27,12 @@ func (c Controller) BillHandler(w http.ResponseWriter, r *http.Request) {
 
 	taxList, err := c.model.GetTaxObjects()
 
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		log.Println(err)
+		return
+	}
+
 	for _,t := range taxList {
 		res.PriceSubTotal += t.Price
 		res.TaxSubTotal += t.TaxAmount
@@ -34,23 +41,18 @@ func (c Controller) BillHandler(w http.ResponseWriter, r *http.Request) {
 
 	res.TaxList = taxList
 
-	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, err.Error())
-		log.Println(err)
-		return
-	}
-
 	respondWithJSON(w, http.StatusOK, res)
 }
 
 
 func (c Controller) TaxObjectHandler(w http.ResponseWriter, r *http.Request) {
 
-	decoder := json.NewDecoder(r.Body)
+	b,_ := ioutil.ReadAll(r.Body)
 
 	var taxObject tax.TaxObject
 
-	err := decoder.Decode(&taxObject)
+	err := json.Unmarshal(b, &taxObject)
+
 	if err != nil {
 		respondWithError(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest))
 		log.Println(err)
