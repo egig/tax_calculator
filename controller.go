@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-// Controller is object holding the http handler
+// Controller class holding the http handler
 type Controller struct {
 	model Model
 }

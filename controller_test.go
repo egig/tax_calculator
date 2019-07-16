@@ -3,10 +3,8 @@ package main
 import (
 	"bytes"
 	"database/sql"
-	"fmt"
 	"github.com/DATA-DOG/go-sqlmock"
 	"gotest.tools/assert"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -33,9 +31,6 @@ func TestController_BillHandler(t *testing.T) {
 	c.BillHandler(w, req)
 
 	resp := w.Result()
-	//body, _ := ioutil.ReadAll(resp.Body)
-
-	//fmt.Print(string(body))
 	assert.Equal(t, resp.StatusCode, http.StatusOK)
 }
 
@@ -65,8 +60,6 @@ func TestModel_CreateTaxObject(t *testing.T) {
 	c.TaxObjectHandler(w, req)
 
 	resp := w.Result()
-	respBody, _ := ioutil.ReadAll(resp.Body)
 
-	fmt.Println(string(respBody))
 	assert.Equal(t, resp.StatusCode, http.StatusCreated)
 }
