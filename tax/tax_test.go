@@ -3,11 +3,10 @@ package tax
 import (
 	"testing"
 	"gotest.tools/assert"
-	//"fmt"
 )
 
 func TestNewFoodTax(t *testing.T) {
-	o := Object{
+	o := TaxObject{
 		0,
 		"Big Mac",
 		1,
@@ -21,7 +20,7 @@ func TestNewFoodTax(t *testing.T) {
 
 func TestNewTobaccoTax(t *testing.T) {
 
-	o := Object{
+	o := TaxObject{
 		0,
 		"Lucky Strike",
 		2,
@@ -34,7 +33,7 @@ func TestNewTobaccoTax(t *testing.T) {
 }
 
 func TestNewEntTax(t *testing.T) {
-	o := Object{
+	o := TaxObject{
 		0,
 		"Lucky Strike",
 		3,
@@ -46,7 +45,7 @@ func TestNewEntTax(t *testing.T) {
 }
 
 func TestNewTax(t *testing.T) {
-	o := Object{
+	o := TaxObject{
 		0,
 		"Big Mac",
 		1,

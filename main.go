@@ -28,8 +28,8 @@ func main() {
 	}
 
 	router := mux.NewRouter()
-	router.HandleFunc("/tax", c.ListTaxHandler).Methods(http.MethodGet)
-	router.HandleFunc("/tax", c.CreateTaxHandler).Methods(http.MethodPost)
+	router.HandleFunc("/bill", c.BillHandler).Methods(http.MethodGet)
+	router.HandleFunc("/tax_objects", c.TaxObjectHandler).Methods(http.MethodPost)
 
 	port := os.Getenv("APP_PORT")
 

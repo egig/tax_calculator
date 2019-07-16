@@ -13,7 +13,7 @@ type Controller struct {
 	model Model
 }
 
-func (c Controller) ListTaxHandler(w http.ResponseWriter, r *http.Request) {
+func (c Controller) BillHandler(w http.ResponseWriter, r *http.Request) {
 
 	type Response struct {
 		PriceSubTotal float64 `json:"price_sub_total"`
@@ -24,7 +24,7 @@ func (c Controller) ListTaxHandler(w http.ResponseWriter, r *http.Request) {
 
 	res := Response{}
 
-	taxList, err := c.model.GetTaxes()
+	taxList, err := c.model.GetTaxObjects()
 
 	for _,t := range taxList {
 		res.PriceSubTotal += t.Price
@@ -44,11 +44,11 @@ func (c Controller) ListTaxHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 
-func (c Controller) CreateTaxHandler(w http.ResponseWriter, r *http.Request) {
+func (c Controller) TaxObjectHandler(w http.ResponseWriter, r *http.Request) {
 
 	decoder := json.NewDecoder(r.Body)
 
-	var taxObject tax.Object
+	var taxObject tax.TaxObject
 
 	err := decoder.Decode(&taxObject)
 	if err != nil {
@@ -81,7 +81,7 @@ func (c Controller) CreateTaxHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := c.model.CreateTax(taxObject)
+	res, err := c.model.CreateTaxObject(taxObject)
 
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())

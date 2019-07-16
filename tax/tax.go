@@ -10,7 +10,7 @@ const (
 	TaxCodeEnt = 3
 )
 
-type Object struct {
+type TaxObject struct {
 	ID int64 `json:"id"`
 	Name string `json:"name"`
 	TaxCode int8 `json:"tax_code"`
@@ -18,19 +18,19 @@ type Object struct {
 }
 
 type Tax struct {
-	Object
+	TaxObject
 	TypeName string `json:"type_name"`
 	Refundable bool `json:"refundable"`
 	TaxAmount float64  `json:"tax"`
 	Amount float64 `json:"amount"`
 }
 
-func NewFoodTax(t Object) Tax {
+func NewFoodTax(t TaxObject) Tax {
 
 	taxAmount := float64((10 * t.Price)/100)
 
 	ft := Tax{
-		Object: t,
+		TaxObject: t,
 		TypeName: "Food & Beverages",
 		TaxAmount: taxAmount,
 		Refundable: true,
@@ -39,11 +39,11 @@ func NewFoodTax(t Object) Tax {
 	return ft
 }
 
-func NewTobaccoTax(t Object) Tax {
+func NewTobaccoTax(t TaxObject) Tax {
 	taxAmount := float64(10 + ((2 * t.Price)/100) )
 
 	tt := Tax{
-		Object: t,
+		TaxObject: t,
 		TypeName: "Tobacco",
 		TaxAmount: taxAmount,
 		Refundable: false,
@@ -52,7 +52,7 @@ func NewTobaccoTax(t Object) Tax {
 	return tt
 }
 
-func NewEntTax(t Object) Tax {
+func NewEntTax(t TaxObject) Tax {
 
 	var taxAmount float64
 	if t.Price < 100 {
@@ -62,7 +62,7 @@ func NewEntTax(t Object) Tax {
 	}
 
 	et := Tax{
-		Object: t,
+		TaxObject: t,
 		TypeName: "Entertainment",
 		TaxAmount: taxAmount,
 		Refundable: false,
@@ -71,7 +71,7 @@ func NewEntTax(t Object) Tax {
 	return et
 }
 
-func NewTax(o Object) Tax {
+func NewTax(o TaxObject) Tax {
 
 	var t Tax
 	if o.TaxCode == TaxCodeFood {
