@@ -103,6 +103,8 @@ Follow this step to run this application.
     ```$xslt
      http://localhost:8080/bill
     ```
-    
-    
 
+## Test
+```$xslt
+go test ./...
+```
