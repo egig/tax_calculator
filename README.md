@@ -13,67 +13,11 @@ Table: tax
 
 ## Api Routes
 
-### POST /tax_objects
+**POST /tax_objects**
 
-Description: Create Tax Object
+**GET /bill**
 
-Example Request
-
-```$xslt
-POST /tax_objects HTTP/1.1
-Host: localhost:8080
-Content-Type: application/json
-
-{
-	"name":"Lucky Strike",
-	"tax_code": 2,
-	"price": 1000
-}
-
-```
-
-Example Reponse
-```$xslt
-{
-    "id": 1,
-    "name": "Lucky Strike",
-    "tax_code": 2,
-    "price": 1000
-}
-```
-
-### GET /bill
-
-Description: Get tax list, tax subtotal, price subtoal and grand total
-
-Example Request:
-
-```
-GET /bill HTTP/1.1
-Host: localhost:8080
-```
-
-Example Response:
-
-```$xslt
-{
-    "price_sub_total": 1000,
-    "tax_sub_total": 30,
-    "grand_total": 1030,
-    "tax_list": [
-        {
-            "id": 1,
-            "name": "Lucky Strike",
-            "tax_code": 2,
-            "price": 1000,
-            "type_name": "Tobacco",
-            "refundable": false,
-            "tax": 30,
-            "amount": 1030
-        }
-    ]
-}
-```
+Complete API doc: [https://taxcalculator.docs.apiary.io](https://taxcalculator.docs.apiary.io)
 
 ## Run
 
