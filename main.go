@@ -6,14 +6,15 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"os"
 )
 
 
 
 func main() {
 
-	dbDriver := "mysql"
-	dbDSN := "root:password@tcp(db)/tax_calculator"
+	dbDriver := os.Getenv("DB_DRIVER")
+	dbDSN := os.Getenv("DB_DSN")
 	db, err := sql.Open(dbDriver, dbDSN)
 	if err != nil {
 		log.Fatal(err)
@@ -31,7 +32,7 @@ func main() {
 	router.HandleFunc("/tax", c.ListTaxHandler).Methods(http.MethodGet)
 	router.HandleFunc("/tax", c.CreateTaxHandler).Methods(http.MethodPost)
 
-	const port = ":8080"
+	port := os.Getenv("APP_PORT")
 
 	log.Printf("App run in port %s", port)
 	log.Fatal(http.ListenAndServe(port, router))

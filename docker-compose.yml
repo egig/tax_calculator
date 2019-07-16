@@ -4,6 +4,10 @@ app:
     - "8080:8080"
   links:
     - db:db
+  environment:
+    APP_PORT: ":8080"
+    DB_DRIVER: mysql
+    DB_DSN: "root:password@tcp(db)/tax_calculator"
 
 db:
   image: mysql:5.7
