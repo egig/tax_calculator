@@ -10,7 +10,6 @@ import (
 )
 
 
-
 func main() {
 
 	dbDriver := os.Getenv("DB_DRIVER")

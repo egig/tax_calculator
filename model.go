@@ -14,14 +14,14 @@ func (m Model) CreateTax(t tax.Object) (sql.Result, error) {
 	return m.DB.Exec(query, t.Name, t.TaxCode, t.Price)
 }
 
-func (m Model) GetTaxes() ([]interface{}, error) {
+func (m Model) GetTaxes() ([]tax.Tax, error) {
 
 	rows, err := m.DB.Query("SELECT id, name, tax_code, price FROM tax")
 	if err != nil {
 		return nil, err
 	}
 
-	var taxes []interface{}
+	var taxes []tax.Tax
 
 	defer rows.Close()
 
