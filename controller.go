@@ -23,7 +23,9 @@ func (c Controller) BillHandler(w http.ResponseWriter, r *http.Request) {
 		TaxList []tax.Tax `json:"tax_list"`
 	}
 
-	res := Response{}
+	res := Response{
+		TaxList: make([]tax.Tax, 0),
+	}
 
 	taxList, err := c.model.GetTaxObjects()
 
@@ -33,13 +35,15 @@ func (c Controller) BillHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _,t := range taxList {
-		res.PriceSubTotal += t.Price
-		res.TaxSubTotal += t.TaxAmount
-		res.GrandTotal += t.Amount
-	}
+	if taxList != nil {
+		res.TaxList = taxList
 
-	res.TaxList = taxList
+		for _,t := range taxList {
+			res.PriceSubTotal += t.Price
+			res.TaxSubTotal += t.TaxAmount
+			res.GrandTotal += t.Amount
+		}
+	}
 
 	respondWithJSON(w, http.StatusOK, res)
 }
